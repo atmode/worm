@@ -34,6 +34,16 @@ func main() {
 
 	points2 := [][]int{{3, 2}, {-2, 2}}
 	fmt.Println("Minimum time for points2 ", minTimeToVisitAllPoints2(points2))
+
+	//island of numbers
+	grid := [][]byte{
+		[]byte("11000"),
+		[]byte("11000"),
+		[]byte("00100"),
+		[]byte("00011"),
+	}
+	fmt.Println("Number of islands:", numIsLands(grid))
+
 }
 func containsDuplicate(arr []int) bool {
 	seen := make(map[int]bool)
@@ -141,4 +151,38 @@ func minTimeToVisitAllPoints2(points [][]int) int {
 	}
 	return totalTime
 
+}
+
+func numIsLands(grid [][]byte) int {
+
+	if len(grid) == 0 {
+		return 0
+	}
+
+	rows := len(grid)
+	cols := len(grid[0])
+	count := 0
+	var dfs func(r, c int)
+	dfs = func(r, c int) {
+		if r < 0 || r >= rows || c < 0 || c >= cols || grid[r][c] != '1' {
+			return
+		}
+		grid[r][c] = '0'
+		dfs(r+1, c) // down
+		dfs(r-1, c) // up
+		dfs(r, c+1) // right
+		dfs(r, c-1) // left
+
+	}
+	for i := 0; i < rows; i++ {
+		for j := 0; j < cols; j++ {
+			// if we find an unvisited land cell, perform DFS
+			if grid[i][j] == '1' {
+				dfs(i, j)
+				count++
+			}
+		}
+	}
+
+	return count
 }
