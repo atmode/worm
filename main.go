@@ -44,7 +44,43 @@ func main() {
 	}
 	fmt.Println("Number of islands:", numIsLands(grid))
 
+	// Using generic function with different types
+	fmt.Println("Max of 10 and 20:", Max(10, 20))
+	fmt.Println("Max of 'a' and 'z':", Max('a', 'z'))
+	fmt.Println("Max of 3.14 and 2.71:", Max(3.14, 2.71))
+
+	// Using generic data structure with string type
+	stringStack := Stack[string]{}
+	stringStack.Push("Hello")
+	stringStack.Push("World")
+	stringStack.Push("Generics")
+
+	fmt.Println("\nPopping from string stack:")
+	for {
+		val, ok := stringStack.Pop()
+		if !ok {
+			break
+		}
+		fmt.Println(val)
+	}
+
+	// Using the same generic data structure with int type
+	intStack := Stack[int]{}
+	intStack.Push(10)
+	intStack.Push(20)
+	intStack.Push(30)
+
+	fmt.Println("\nPopping from int stack:")
+	for {
+		val, ok := intStack.Pop()
+		if !ok {
+			break
+		}
+		fmt.Println(val)
+	}
+
 }
+
 func containsDuplicate(arr []int) bool {
 	seen := make(map[int]bool)
 	for _, value := range arr {
